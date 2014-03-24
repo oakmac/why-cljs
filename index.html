@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Introduction to ClojureScript, Mar 2014 - Chris Oakman</title>
+  <title>Why ClojureScript? Mar 2014 - Chris Oakman</title>
   <script src="js/slides.js"></script>
   <style>
   /* remove the Google logo */
@@ -25,21 +25,210 @@
 <section class="slides layout-regular template-default">
 
 <article>
-<h1>Introduction to ClojureScript</h1>
+<h1>Why ClojureScript?</h1>
 <p>Chris Oakman<br />
   March 2014
 </p>
 </article>
 
 <article>
-<h3>Common Questions</h3>
-<ul>
-  <li>Can I use jQuery?</li>
-  <li>Can I use <i>*js-library-of-the-week*</i>?</li>
-  <li>Can I debug?</li>
-</ul>
-<h2>Yes, to all the above.</h2>
+  <h3>Overview</h3>
+  <ul>
+    <li>Goal of the talk</li>
+    <li>Definitions</li>
+    <li>Why a language?</li>
+    <li>Why ClojureScript?</li>
+    <li>Why not ClojureScript?</li>
+    <li>Q&amp;A</li>
+  </ul>
 </article>
+
+<article>
+  <h3>Goal</h3>
+  <p style="margin-top:80px">ClojureScript is an excellent language choice for UI development.</p>
+</article>
+
+<article>
+  <h1>Definitions</h1>
+  <p>Are we all talking about the same thing?</p>
+</article>
+
+<article>
+<h3>Clojure Concepts</h3>
+<ul>
+  <li>Simple vs Easy</li>
+  <li>Complecting</li>
+  <li>Artifacts vs Constructs</li>
+  <li>Incidental Complexity vs Problem Complexity</li>
+  <li>Human complexity limitations</li>
+</ul>
+</article>
+
+<article>
+<h3>The Players</h3>
+<ul>
+  <li>Clojure - language that targets the JVM</li>
+  <li>ClojureScript - dialect of Clojure that targets JS</li>
+  <li>Google Closure Compiler</li>
+  <li>Google Closure Library</li>
+  <li>Closure - computer science concept</li>
+</ul>
+</article>
+
+<article>
+  <h1>Why a language?</h1>
+  <p>I say hello, you say hola.</p>
+</article>
+
+<article class="smaller">
+  <q>A programming system has two parts. The programming <em>environment</em> is the part that's installed on the computer. The programming <em>language</em> is the part that's installed in the programmer's head.</q>
+  <div class="author">Bret Victor</div>
+  <div class="source"><a href="http://worrydream.com/LearnableProgramming/" target="_blank">http://worrydream.com/LearnableProgramming/</a></div>
+</article>
+
+<article>
+  <h3>Languages Matter</h3>
+  <ul>
+    <li>Languages have opinions</li>
+    <li>Languages inform and influence program decisions</li>
+    <li>Clojure has a focus on simplicity</li>
+    <li>What are some of the opinions of <em>your</em> favorite language?</li>
+  </ul>
+</article>
+
+<article>
+  <h3>Unfamiliarity !== Bad</h3>
+  <ul>
+    <li>"unfamiliar", "weird", "strange" - These are not good reasons not to learn something.</li>
+    <li>More language concepts === more power in the language</li>
+    <li>TODO: more on this slide? delete it?</li>
+    <li>How powerful is <em>your</em> favorite language?</li>
+  </ul>
+</article>
+
+<article>
+  <h3>Fill in the blank</h3>
+  <p>____________ is a stateful, dynamically typed, imperative programming language often used for web development.</p>
+  <p>Most web development languages are far more similar than they are different. People love to talk about the superficial differences between these languages.</p>
+  <p>Change your language; change the way you think about your programs.</p>
+</article>
+
+<article>
+  <h1>Why ClojureScript?</h1>
+  <p>Best of breed.</p>
+</article>
+
+<article>
+  <h3>All the benefits of JS; none of the warts</h3>
+  <ul>
+    <li>CLJS compiles to JS; can be used anywhere JS is (ie: everywhere)</li>
+    <li></li>
+    <li>Languages inform and influence program decisions</li>
+    <li>Clojure has a focus on simplicity</li>
+    <li>What are some of the opinions of <em>your</em> favorite language?</li>
+  </ul>
+</article>
+
+<article>
+<h3>The Problem with Mutability</h3>
+<section>
+<pre>
+// a, b, someFn, anotherFn are defined above this line
+
+a = "foo";
+b = "bar";
+
+a = someFn(a);
+b = anotherFn(a, b);
+
+// what is the value of a? b?
+console.log(a);
+console.log(b);
+</pre>
+<p>Mutability complects <em>value</em> over <em>time</em>.</p>
+<p>Put another way, the value of something depends on what "time" it is in the program. Time becomes one more ball to juggle while you're programming.</p>
+</section>
+</article>
+
+<article>
+<h3>A Clojure Approach to State - Atoms</h3>
+<section>
+<pre>
+;; foo is an atom; it can change state
+(def foo (atom nil))
+
+(defn on-change-foo [old-foo new-foo]
+  ;; do something here
+  )
+
+;; "watch" the atom for changes
+(add-watch foo on-change-foo)
+
+;; change the value of foo
+;; foo becomes the result of executing the bar function
+(swap! foo bar)
+</pre>
+<div class="source">* Note: example simplified for talk</div>
+</section>
+</article>
+
+<article>
+<h3>JS Interop Example - Event Delegation with Threading Macro</h3>
+<section>
+<pre>
+(defn add-events []
+  (-> ($ "#myContainer")
+    (on "mousedown" on-mousedown)
+    (on "click" "#btn1" on-click-btn1)
+    (on "click" "#btn2" on-click-btn2)
+    (on "hover" ".tab" on-hover-tab)
+    (on "change" "input.date" change-date-field)
+    (on "click" "#submitBtn" on-submit)))
+</pre>
+</section>
+</article>
+
+<article>
+<h3>Checking DOM State TODO: where to include this slide?</h3>
+<section>
+<pre>
+if ($("#statusBar").css("display") === "none") {
+  // do a thing
+}
+else {
+  // do a different thing
+}
+</pre>
+</section>
+</article>
+
+<article>
+<h3>Notion of a Value</h3>
+<section>
+<pre>
+var personA = {
+  age: 32,
+  name : {
+    first: "John",
+    last: "Doe"
+  }
+};
+
+var personB = {
+  age: 22,
+  name: {
+    first: "Jane",
+    last: "Doe"
+  }
+};
+
+if (personA === personB) {
+  // why can't I do this in JS?
+};
+</pre>
+</section>
+</article>
+
 
 <article>
   <h1>Growing Complexity</h1>
@@ -53,28 +242,8 @@
     <li>Function reactive programming (ie: the Angular model)</li>
 </article>
 
-<article class='smaller'>
-  <q>
-A programming system has two parts. The programming "environment" is the part that's installed on the computer. The programming "language" is the part that's installed in the programmer's head.
-  </q>
-  <div class='author'>
-    Bret Victor
-  </div>
-</article>
-
 <article>
   <h2>Ideas</h2>
-</article>
-
-<article>
-<h3>Concepts</h3>
-<ul>
-  <li>Simple vs Easy</li>
-  <li>Complecting</li>
-  <li>Artifacts vs Constructs</li>
-  <li>Incidental Complexity vs Problem Complexity</li>
-  <li>Complexity limitations in large systems (juggling analogy)</li>
-</ul>
 </article>
 
 <article>
@@ -103,13 +272,13 @@ A programming system has two parts. The programming "environment" is the part th
 </article>
 
 <article>
-<h3>The Players</h3>
+<h3>Common Questions: TODO: move this to first slide under "Why CLJS?"</h3>
 <ul>
-  <li>Clojure (the language)</li>
-  <li>Google Closure Library</li>
-  <li>Google Closure Compiler</li>
-  <li>ClojureScript</li>
+  <li>Can I use jQuery?</li>
+  <li>Can I use <i>*js-library-of-the-week*</i>?</li>
+  <li>Can I debug?</li>
 </ul>
+<h2>Yes, to all the above.</h2>
 </article>
 
 <article class="smaller">
