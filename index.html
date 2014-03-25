@@ -2,22 +2,19 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Why ClojureScript? Mar 2014 - Chris Oakman</title>
+  <title>Why ClojureScript? March 2014 - Chris Oakman</title>
   <script src="js/slides.js"></script>
+  <link rel="stylesheet" href="styles/googlecode.css">
   <style>
-  /* remove the Google logo */
   article {
-    background: #fff !important;
+    background: #fff !important; /* remove the Google logo */
   }
   .string {
     color: #008A35;
   }
-  .small2 {
-    font-size: 18px !important;
-  }
-  .further-reading img {
-    height: 80px;
-    vertical-align: middle;
+  pre {
+    background: #fff !important;
+    box-shadow: none !important;
   }
   </style> 
 </head>
@@ -39,7 +36,6 @@
     <li>Why a language?</li>
     <li>Why ClojureScript?</li>
     <li>Why not ClojureScript?</li>
-    <li>Q&amp;A</li>
   </ul>
 </article>
 
@@ -61,15 +57,19 @@
   <li>Artifacts vs Constructs</li>
   <li>Incidental Complexity vs Problem Complexity</li>
   <li>Human complexity limitations</li>
+  <li>Values vs References</li>
 </ul>
+<div class="source">
+More on these ideas: <a href="http://www.infoq.com/presentations/Are-We-There-Yet-Rich-Hickey">Are We There Yet?</a>, <a href="http://www.infoq.com/presentations/Simple-Made-Easy">Simple Made Easy</a>, <a href="http://www.infoq.com/presentations/Value-Values">The Value of Values</a>
+</div>
 </article>
 
-<article>
+<article class="">
 <h3>The Players</h3>
 <ul>
   <li>Clojure - language that targets the JVM</li>
   <li>ClojureScript - dialect of Clojure that targets JS</li>
-  <li>Google Closure Compiler</li>
+  <li>Google Closure Compiler - used in the CLJS compilation process</li>
   <li>Google Closure Library</li>
   <li>Closure - computer science concept</li>
 </ul>
@@ -89,13 +89,14 @@
 <article>
   <h3>Languages Matter</h3>
   <ul>
-    <li>Languages have opinions</li>
-    <li>Languages inform and influence program decisions</li>
+    <li>Languages have opinions and defaults</li>
+    <li>Opinions and defaults inform and influence program decisions</li>
     <li>Clojure has a focus on simplicity</li>
     <li>What are some of the opinions of <em>your</em> favorite language?</li>
   </ul>
 </article>
 
+<!--
 <article>
   <h3>Unfamiliarity !== Bad</h3>
   <ul>
@@ -105,12 +106,15 @@
     <li>How powerful is <em>your</em> favorite language?</li>
   </ul>
 </article>
+-->
 
 <article>
   <h3>Fill in the blank</h3>
-  <p>____________ is a stateful, dynamically typed, imperative programming language often used for web development.</p>
-  <p>Most web development languages are far more similar than they are different. People love to talk about the superficial differences between these languages.</p>
-  <p>Change your language; change the way you think about your programs.</p>
+  <p>____________ is a stateful, dynamically typed, imperative programming language often used for web development that supports an object-oriented programming style.</p>
+  <div class="build" style="margin-top:80px;">
+  <p>Most web development languages are more <em>similar</em> than they are different. People love to focus on the superficial differences between similar languages.</p>
+  <p style="margin-top: 80px">Change your language; change the way you think about your programs.</p>
+  </div>
 </article>
 
 <article>
@@ -118,22 +122,37 @@
   <p>Best of breed.</p>
 </article>
 
-<article>
+<article class="smaller">
   <h3>All the benefits of JS; none of the warts</h3>
   <ul>
-    <li>CLJS compiles to JS; can be used anywhere JS is (ie: everywhere)</li>
-    <li></li>
-    <li>Languages inform and influence program decisions</li>
-    <li>Clojure has a focus on simplicity</li>
-    <li>What are some of the opinions of <em>your</em> favorite language?</li>
+    <li>Clojure is a successful language with great defaults / opinions</li>
+    <li>Functional programming is easier to reason about; results in fewer lines of code</li>
+    <li>CLJS compiles to JS; can be used anywhere JS is available</li>
+    <li>Simple access to any JS library</li>
+    <li>Clojure has an excellent approach to state management, which is a first-class problem in UI programming</li>
+    <li>Proper namespaces bring sanity</li>
+    <li>Whole program optimization is a killer feature</li>
+    <li>Macros allow for extension of the language in a powerful way</li>
+    <li>Same language on server and client</li>
   </ul>
 </article>
 
 <article>
-<h3>The Problem with Mutability</h3>
+<h3>First Questions from JS Devs</h3>
+<ul>
+  <li>Can I use jQuery?</li>
+  <li>Can I use <i>*js-library-of-the-week*</i>?</li>
+  <li>Can I debug?</li>
+</ul>
+<div class="build">
+<h1 style="margin-top: 80px">Yes!</h1>
+</div>
+</article>
+
+<article>
+<h3>The Problem with State and Mutability</h3>
 <section>
-<pre>
-// a, b, someFn, anotherFn are defined above this line
+<pre><code>// a, b, someFn, anotherFn are defined above this line
 
 a = "foo";
 b = "bar";
@@ -144,17 +163,18 @@ b = anotherFn(a, b);
 // what is the value of a? b?
 console.log(a);
 console.log(b);
-</pre>
+</code></pre>
 <p>Mutability complects <em>value</em> over <em>time</em>.</p>
+<div class="build" style="margin-top:25px">
 <p>Put another way, the value of something depends on what "time" it is in the program. Time becomes one more ball to juggle while you're programming.</p>
+</div>
 </section>
 </article>
 
 <article>
 <h3>A Clojure Approach to State - Atoms</h3>
 <section>
-<pre>
-;; foo is an atom; it can change state
+<pre><code>;; foo is an atom; it can change state
 (def foo (atom nil))
 
 (defn on-change-foo [old-foo new-foo]
@@ -162,21 +182,21 @@ console.log(b);
   )
 
 ;; "watch" the atom for changes
+;; run on-change-foo everytime foo changes value
 (add-watch foo on-change-foo)
 
-;; change the value of foo
+;; change the value of foo with swap!
 ;; foo becomes the result of executing the bar function
 (swap! foo bar)
-</pre>
+</code></pre>
 <div class="source">* Note: example simplified for talk</div>
 </section>
 </article>
 
 <article>
-<h3>JS Interop Example - Event Delegation with Threading Macro</h3>
+<h3>JS Interop and Macro Example - Event Delegation</h3>
 <section>
-<pre>
-(defn add-events []
+<pre><code>(defn add-events []
   (-> ($ "#myContainer")
     (on "mousedown" on-mousedown)
     (on "click" "#btn1" on-click-btn1)
@@ -184,10 +204,11 @@ console.log(b);
     (on "hover" ".tab" on-hover-tab)
     (on "change" "input.date" change-date-field)
     (on "click" "#submitBtn" on-submit)))
-</pre>
+</code></pre>
 </section>
 </article>
 
+<!--
 <article>
 <h3>Checking DOM State TODO: where to include this slide?</h3>
 <section>
@@ -201,35 +222,46 @@ else {
 </pre>
 </section>
 </article>
+-->
 
-<article>
-<h3>Notion of a Value</h3>
+<article class="smaller">
+<h3>Values are Useful</h3>
 <section>
-<pre>
-var personA = {
+<div style="float: left; width: 49%">
+<pre><code>var personA = {
   age: 32,
-  name : {
-    first: "John",
-    last: "Doe"
-  }
+  name: { first: "John", last: "Doe" }
 };
 
 var personB = {
   age: 22,
-  name: {
-    first: "Jane",
-    last: "Doe"
-  }
+  name: { first: "Jane", last: "Doe" }
 };
 
 if (personA === personB) {
   // why can't I do this in JS?
 };
-</pre>
+</code></pre>
+</div>
+<div style="float: right; width: 49%">
+<pre><code>(def person-a {
+  :age 32
+  :name { :first "John" :last "Doe" }})
+
+(def person-b {
+  :age 22
+  :name { :first "Jane" :last "Doe" }})
+
+(if (= person-a person-b)
+  ;; do something
+  )
+</code></pre>
+</div>
+<div style="clear: both"></div>
 </section>
 </article>
 
-
+<!--
 <article>
   <h1>Growing Complexity</h1>
   <p>Are your requirements getting simpler or more complex?</p>
@@ -241,21 +273,9 @@ if (personA === personB) {
     <li>State management (ie: the Backbone model)</li>
     <li>Function reactive programming (ie: the Angular model)</li>
 </article>
+-->
 
-<article>
-  <h2>Ideas</h2>
-</article>
-
-<article>
-<h3>Big Wins for UI</h3>
-<ul>
-  <li>Powerful data types</li>
-  <li>Notion of a value</li>
-  <li>State management built into the language</li>
-  <li>Easy interop to JS</li>
-</ul>
-</article>
-
+<!--
 <article>
 <h3>Wins over JavaScript / CoffeeScript</h3>
 <ul>
@@ -266,28 +286,41 @@ if (personA === personB) {
   <li>Macros allow language extension (core.async)</li>
 </ul>
 </article>
+-->
 
 <article>
-  <h2>How?</h2>
+  <h1>Why not ClojureScript?</h1>
+  <p>There is no free lunch.</p>
 </article>
 
 <article>
-<h3>Common Questions: TODO: move this to first slide under "Why CLJS?"</h3>
+<h3>Things that are less than perfect</h3>
 <ul>
-  <li>Can I use jQuery?</li>
-  <li>Can I use <i>*js-library-of-the-week*</i>?</li>
-  <li>Can I debug?</li>
+  <li>Requires a build process</li>
+  <li>Size overhead of the CLJS standard library</li>
+  <li>Tooling is young</li>
+  <li>Not a huge community</li>
+  <li>Initial setup can be difficult</li>
 </ul>
-<h2>Yes, to all the above.</h2>
+<div class="build" style="margin-top: 100px">
+  <p>It is my strong opinion that the positives outweigh the negatives.</p>
+</div>
 </article>
 
-<article class="smaller">
+<article>
   <h1>Thank you!</h1>
   <p>Chris Oakman
   <br />
   <a href="mailto:chris@oakmac.com">chris@oakmac.com</a>
+  <br /><br />
+  <a href="http://oakmac.com/why-cljs/">http://oakmac.com/why-cljs/</a><br />
+  <a href="https://github.com/oakmac/why-cljs">https://github.com/oakmac/why-cljs</a>
 </article>
 
 </section>
+<script src="js/highlight.pack.js"></script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
 </body>
 </html>

@@ -588,7 +588,7 @@ function handleDomLoaded() {
 
   addFontStyle();
   addGeneralStyle();
-  addPrettify();
+  //addPrettify();
   addEventListeners();
 
   updateSlides();
@@ -597,6 +597,8 @@ function handleDomLoaded() {
   makeBuildLists();
 
   document.body.classList.add('loaded');
+
+  //setTimeout(prettyPrint, 10);
 };
 
 function initialize() {
