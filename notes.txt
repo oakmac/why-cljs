@@ -1,0 +1,29 @@
+Simple vs Easy
+Simple - not connected with anything, an objective notion
+Easy - always relative, easy for whom? in what context?
+
+example of simple = a cup
+example of easy = speaking japanese
+
+Complecting
+to make something complex; to combine things
+
+a studfinder tool is easy to use, complected with drywall and studs
+
+the artifact is the thing 
+construct = "programmer convenience"
+we should care about the result of what we're producing, not on how we're producing it
+
+Human Complexity Limitations
+our ability to put context in our head is fundamentally limited to small chunks at a time
+juggler analogy
+
+you can create a mountain of complexity in a weekend!
+programs consist of thousands of pieces of interconnected logic
+Are your requirements getting simpler or more complex?
+who has customers that say "can you have it do less in the next version?"
+
+
+Values vs References
+a value is the data, the real thing
+values don't change, you don't change one value into another value, you've just created a new value
