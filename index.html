@@ -89,24 +89,21 @@ More on these ideas: <a href="http://www.infoq.com/presentations/Are-We-There-Ye
 <article>
   <h3>Languages Matter</h3>
   <ul>
-    <li>Languages have opinions and defaults</li>
-    <li>Opinions and defaults inform and influence program decisions</li>
-    <li>Clojure has a focus on simplicity</li>
+    <li>Languages have opinions and defaults that inform and influence decisions</li>
+    <li>Languages determine how you think about your program</li>
     <li>What are some of the opinions of <em>your</em> favorite language?</li>
   </ul>
 </article>
 
-<!--
 <article>
   <h3>Unfamiliarity !== Bad</h3>
   <ul>
-    <li>"unfamiliar", "weird", "strange" - These are not good reasons not to learn something.</li>
+    <li>"unfamiliar", "weird", "strange" - these are not words of understanding</li>
+    <li>Are you focusing on the Construct or the Artifact?</li>
     <li>More language concepts === more power in the language</li>
-    <li>TODO: more on this slide? delete it?</li>
     <li>How powerful is <em>your</em> favorite language?</li>
   </ul>
 </article>
--->
 
 <article>
   <h3>Fill in the blank</h3>
@@ -122,17 +119,26 @@ More on these ideas: <a href="http://www.infoq.com/presentations/Are-We-There-Ye
   <p>Best of breed.</p>
 </article>
 
-<article class="smaller">
+<article class="">
+  <h3>Clojure has Great Defaults</h3>
+  <ul>
+    <li>Clojure has a focus on simplicity</li>
+    <li>Clojure is a success story on the JVM</li>
+    <li>Functional programs are easier to reason about; result in fewer lines of code</li>
+    <li>Data is immutable by default</li>
+    <li>Pure functions are the default</li>
+    <li>Clojure has an excellent approach to state management, which is a first-class problem in UI programming</li>
+    <li>Macros allow for extension of the language in a powerful way</li>
+  </ul>
+</article>
+
+<article class="">
   <h3>All the benefits of JS; none of the warts</h3>
   <ul>
-    <li>Clojure is a successful language with great defaults / opinions</li>
-    <li>Functional programming is easier to reason about; results in fewer lines of code</li>
     <li>CLJS compiles to JS; can be used anywhere JS is available</li>
-    <li>Simple access to any JS library</li>
-    <li>Clojure has an excellent approach to state management, which is a first-class problem in UI programming</li>
-    <li>Proper namespaces bring sanity</li>
+    <li>Simple access to JS libraries and ecosystem</li>
+    <li>Real namespaces bring sanity to code organization</li>
     <li>Whole program optimization is a killer feature</li>
-    <li>Macros allow for extension of the language in a powerful way</li>
     <li>Same language on server and client</li>
   </ul>
 </article>
@@ -153,7 +159,6 @@ More on these ideas: <a href="http://www.infoq.com/presentations/Are-We-There-Ye
 <h3>The Problem with State and Mutability</h3>
 <section>
 <pre><code>// a, b, someFn, anotherFn are defined above this line
-
 a = "foo";
 b = "bar";
 
@@ -165,10 +170,20 @@ console.log(a);
 console.log(b);
 </code></pre>
 <p>Mutability complects <em>value</em> over <em>time</em>.</p>
-<div class="build" style="margin-top:25px">
-<p>Put another way, the value of something depends on what "time" it is in the program. Time becomes one more ball to juggle while you're programming.</p>
-</div>
+<p style="margin-top: 20px">Put another way, the value of something depends on what "time" it is in the program. Time becomes one more ball to juggle while you're programming.</p>
 </section>
+</article>
+
+<article>
+<h3>More on State and Mutability</h3>
+<ul>
+  <li>The DOM is stateful</li>
+  <li>UIs are stateful</li>
+  <li>State and mutability are a huge source of bugs in our programs</li>
+  <li>Backbone.js is a library approach to state; try to isolate it</li>
+  <li>Angular.js is a library approach to state; data binding</li>
+  <li>Clojure deals with state at the language level; not through a library</li>
+</ul>
 </article>
 
 <article>
@@ -208,24 +223,8 @@ console.log(b);
 </section>
 </article>
 
-<!--
-<article>
-<h3>Checking DOM State TODO: where to include this slide?</h3>
-<section>
-<pre>
-if ($("#statusBar").css("display") === "none") {
-  // do a thing
-}
-else {
-  // do a different thing
-}
-</pre>
-</section>
-</article>
--->
-
 <article class="smaller">
-<h3>Values are Useful</h3>
+<h3>Values are Awesome</h3>
 <section>
 <div style="float: left; width: 49%">
 <pre><code>var personA = {
@@ -261,32 +260,20 @@ if (personA === personB) {
 </section>
 </article>
 
-<!--
-<article>
-  <h1>Growing Complexity</h1>
-  <p>Are your requirements getting simpler or more complex?</p>
+<article class="smaller">
+<h3>Whole Program Optimization Rocks</h3>
+<section>
+<pre><code>// no optimizations
+function hello(name) {
+  alert('Hello, ' + name);
+}
+hello('New user');</code></pre>
+<pre><code>// simple optimizations
+function hello(a){alert("Hello, "+a)}hello("New user");</code></pre>
+<pre><code>// advanced optimizations removes dead code
+alert("Hello, New user");</code></pre>
+</section>
 </article>
-
-<article>
-  <h1>UI Programming</h1>
-  <ul>
-    <li>State management (ie: the Backbone model)</li>
-    <li>Function reactive programming (ie: the Angular model)</li>
-</article>
--->
-
-<!--
-<article>
-<h3>Wins over JavaScript / CoffeeScript</h3>
-<ul>
-  <li>Proper namespaces</li>
-  <li>Whole program optimization</li>
-  <li>Functional language</li>
-  <li>Immutability as a default</li>
-  <li>Macros allow language extension (core.async)</li>
-</ul>
-</article>
--->
 
 <article>
   <h1>Why not ClojureScript?</h1>
@@ -302,9 +289,7 @@ if (personA === personB) {
   <li>Not a huge community</li>
   <li>Initial setup can be difficult</li>
 </ul>
-<div class="build" style="margin-top: 100px">
-  <p>It is my strong opinion that the positives outweigh the negatives.</p>
-</div>
+<p style="margin-top: 100px">It is my strong opinion that the positives outweigh the negatives.</p>
 </article>
 
 <article>
